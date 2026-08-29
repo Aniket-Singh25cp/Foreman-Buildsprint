@@ -1,18 +1,18 @@
-from pydantic import BaseModel
-from typing import List, Optional
+from pydantic import BaseModel, Field
+from typing import List, Literal, Optional
 
 class ProjectCreate(BaseModel):
-    brief: str
+    brief: str = Field(..., min_length=10, max_length=2000, description="Project brief description")
 
 class TaskUpdate(BaseModel):
-    status: str
+    status: Literal["pending", "done"]
 
 class Task(BaseModel):
     id: int
     title: str
     description: str = ""
     depends_on: List[int] = []
-    status: str = "pending"
+    status: Literal["pending", "done"] = "pending"
 
 class ProjectData(BaseModel):
     project_id: str
@@ -22,4 +22,5 @@ class ProjectData(BaseModel):
 class ProjectResponse(BaseModel):
     project_id: str
     tasks: List[Task]
+
 

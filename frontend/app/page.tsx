@@ -24,6 +24,8 @@ export default function Home() {
   const trimmedLength = brief.replace(/\s+/g, "").length;
   const isValidBrief = trimmedLength >= 15;
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidBrief) return;
@@ -32,7 +34,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:8000/projects", {
+      const res = await fetch(`${API_BASE_URL}/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +78,7 @@ export default function Home() {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/projects/${projectData.project_id}/tasks/${taskId}`,
+        `${API_BASE_URL}/projects/${projectData.project_id}/tasks/${taskId}`,
         {
           method: "PATCH",
           headers: {
@@ -198,7 +200,7 @@ export default function Home() {
                 ID: {projectData.project_id}
               </span>
               <a
-                href={`http://localhost:8000/projects/${projectData.project_id}/summary-deck`}
+                href={`${API_BASE_URL}/projects/${projectData.project_id}/summary-deck`}
                 download
                 target="_blank"
                 rel="noopener noreferrer"

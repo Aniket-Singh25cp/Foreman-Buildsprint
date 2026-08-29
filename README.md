@@ -83,3 +83,14 @@ Open `http://localhost:3000` in your browser.
 ## Built with LatentCode
 
 Every line of application code in this repo was generated using LatentCode inside the BuildSprint 2026 hackathon window, per the official rulebook.
+
+## Backend Robustness & Security Checks
+
+- **CORS Restricted**: Allowed origins restricted to `http://localhost:3000`, `http://127.0.0.1:3000`, and optional `FRONTEND_ORIGIN` env variable.
+- **Pydantic Validation**:
+  - `ProjectCreate` brief constrained (`min_length=10`, `max_length=2000`). Rejects short/oversized payloads before LLM invocation.
+  - `TaskUpdate` status constrained to `Literal["pending", "done"]`. Invalid values return `422 Unprocessable Entity`.
+- **Task ID Scoping**: Task IDs (1, 2, 3...) are unique per project instance and scoped under `PROJECTS_DB[project_id]`.
+- **Live Summary Deck Generation**: `GET /projects/{project_id}/summary-deck` dynamically reads live task states from `PROJECTS_DB` at request time.
+- **Configurable Frontend API**: `NEXT_PUBLIC_API_URL` configures the backend base URL (defaults to `http://localhost:8000`).
+
