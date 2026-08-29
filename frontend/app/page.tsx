@@ -119,12 +119,12 @@ export default function Home() {
       {/* Top Header */}
       <header className="border-b-2 border-[#0c1c38] bg-[#f4f3ee] px-6 py-3 flex items-center justify-between">
         <h1 className="text-lg font-black font-mono tracking-wider uppercase text-[#0c1c38]">
-          FOREMAN <span className="text-xs font-normal text-slate-500 font-sans tracking-normal ml-2">Job Site Control</span>
+          FOREMAN <span className="text-xs font-normal text-slate-500 font-sans tracking-normal ml-2">Decompose any project brief into a live, trackable task board — automatically.</span>
         </h1>
       </header>
 
       {/* Main Layout */}
-      <main className="flex-1 w-full max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-6">
+      <main className="flex-1 w-full max-w-350 mx-auto px-6 py-6 flex flex-col gap-6">
         {/* Brief Input Card */}
         <section className="bg-white border-2 border-[#0c1c38] p-5">
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -171,7 +171,7 @@ export default function Home() {
 
         {/* Empty State */}
         {!projectData && !loading && (
-          <div className="flex-1 flex flex-col items-center justify-center p-12 text-center border-2 border-dashed border-[#0c1c38]/30 bg-white/40 min-h-[300px]">
+          <div className="flex-1 flex flex-col items-center justify-center p-12 text-center border-2 border-dashed border-[#0c1c38]/30 bg-white/40 min-h-75">
             <h3 className="text-xs font-mono font-bold text-[#0c1c38] uppercase tracking-wider">
               No Active Project Board
             </h3>
@@ -183,7 +183,7 @@ export default function Home() {
 
         {/* Loading State */}
         {loading && (
-          <div className="flex-1 flex flex-col items-center justify-center p-12 text-center border-2 border-[#0c1c38] bg-white min-h-[300px]">
+          <div className="flex-1 flex flex-col items-center justify-center p-12 text-center border-2 border-[#0c1c38] bg-white min-h-75">
             <div className="w-8 h-8 border-3 border-[#0c1c38] border-t-orange-600 animate-spin mb-3" />
             <p className="text-xs font-mono font-bold text-[#0c1c38] uppercase">
               Decomposing brief into work orders...
