@@ -41,6 +41,13 @@ Field rules:
 
 @router.post("", response_model=ProjectResponse)
 def create_project(project: ProjectCreate):
+    trimmed_brief = project.brief.strip()
+    if len(trimmed_brief) < 15:
+        raise HTTPException(
+            status_code=400,
+            detail="Brief is too short - please describe your project in more detail"
+        )
+
     api_key = os.getenv("LATENTSTACK_API_KEY")
     if not api_key:
         raise HTTPException(
