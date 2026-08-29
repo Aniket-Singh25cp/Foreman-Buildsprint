@@ -8,7 +8,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pptx import Presentation
 from pptx.util import Inches, Pt
-from models import ProjectCreate, ProjectResponse, ProjectData, Task
+from models import ProjectCreate, ProjectResponse, ProjectData, Task, TaskUpdate
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 
@@ -212,4 +212,24 @@ def generate_summary_deck(project_id: str):
         media_type=media_type,
         filename=filename
     )
+
+
+@router.patch("/{project_id}/tasks/{task_id}", response_model=Task)
+def update_task_status(project_id: str, task_id: int, task_update: TaskUpdate):
+    if project_id not in PROJECTS_DB:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    project = PROJECTS_DB[project_id]
+    target_task = None
+    for task in project.tasks:
+        if task.id == task_id:
+            target_task = task
+            break
+
+    if not target_task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    target_task.status = task_update.status
+    return target_task
+
 

@@ -4,6 +4,9 @@ from typing import List, Optional
 class ProjectCreate(BaseModel):
     brief: str
 
+class TaskUpdate(BaseModel):
+    status: str
+
 class Task(BaseModel):
     id: int
     title: str
